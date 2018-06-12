@@ -20,7 +20,7 @@ $1.56 Connectors, antenna, capacitors, oscillators, resistors.
 
 $FREE My soldering
 
-Total: $6 (12% of the pricely iClicker2)
+Total: $6 (12% of the expensive iClicker2)
 
 Notes
 ------
