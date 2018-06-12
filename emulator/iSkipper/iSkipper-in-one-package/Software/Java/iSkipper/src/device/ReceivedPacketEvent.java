@@ -3,8 +3,10 @@ package device;
 import java.util.EventObject;
 
 /**
- * @author CSR The event that triggered when the SerialListener had received a
- *         complete command packet(An ASCII string ended by '\0).
+ * The event that triggered when the SerialListener had received a complete
+ * response packet(An ASCII string ended by '\0).
+ * 
+ * @author CSR
  */
 public class ReceivedPacketEvent extends EventObject
 {

@@ -8,6 +8,8 @@ import java.util.EventListener;
 import device.ReceivedPacketEvent;
 
 /**
+ * The interface of respons packet Handler
+ * 
  * @author CSR
  *
  */

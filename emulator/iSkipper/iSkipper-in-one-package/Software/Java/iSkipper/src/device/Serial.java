@@ -5,6 +5,15 @@ import com.fazecast.jSerialComm.SerialPort;
 import handler.PrintHandler;
 import handler.ReceivedPacketHandlerInterface;
 
+/**
+ * The class for all SerialPort communications.</br>
+ * 
+ * It aggregates with com.fazecast.jSerialComm.SerialPort
+ * 
+ * @see {@link http://fazecast.github.io/jSerialComm/javadoc/com/fazecast/jSerialComm/SerialPort.html}
+ * @author CSR
+ *
+ */
 public class Serial
 {
 	private SerialPort serialPort;
@@ -68,6 +77,10 @@ public class Serial
 		serialPort.addDataListener(listener);
 	}
 
+	/**
+	 * @param toWrite
+	 *            send data to this serial port
+	 */
 	public void writeBytes(byte[] toWrite)
 	{
 		serialPort.writeBytes(toWrite, toWrite.length);

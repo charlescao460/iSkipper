@@ -1,10 +1,12 @@
 package support;
 
 /**
+ * Class for converting between ASCII and Unicode
+ * 
  * @author Charles Cao (CSR)
  *
  */
-public class ASCII
+public final class ASCII
 {
 
 	/**
