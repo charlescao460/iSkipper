@@ -8,9 +8,10 @@ import java.util.EventListener;
 import device.ReceivedPacketEvent;
 
 /**
- * The interface of respons packet Handler
+ * The interface of response packet Handler
  * 
  * @author CSR
+ * @see java.util.EventListener
  *
  */
 public interface ReceivedPacketHandlerInterface extends EventListener

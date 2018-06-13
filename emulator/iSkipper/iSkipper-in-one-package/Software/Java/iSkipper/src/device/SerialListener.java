@@ -16,8 +16,9 @@ import handler.ReceivedPacketHandlerInterface;
  * This class keeps buffering the data from serial port, and sends
  * ReceivedPacketEvent when receives a complete response.
  * 
- * @see {@link http://fazecast.github.io/jSerialComm/javadoc/com/fazecast/jSerialComm/SerialPortDataListener.html}
- * 
+ * @see <a href=
+ *      "http://fazecast.github.io/jSerialComm/javadoc/com/fazecast/jSerialComm/SerialPortDataListener.html"
+ *      >com.fazecast.jSerialComm.SerialPortDataListener</a>
  *
  * @author Charles Cao (CSR)
  *
@@ -44,7 +45,7 @@ public class SerialListener implements SerialPortDataListener
 		unhandledPackets = new ArrayDeque<>(SERIAL_INITIAL_PACKET_QUEUE_SIZE);
 		this.packetHandler = eventHandler;
 		numBytesReceived = 0;
-		eventSender = new Thread(new Runnable()
+		eventSender = new Thread()
 		{
 			// Anonymous inner class
 			@Override
@@ -59,15 +60,15 @@ public class SerialListener implements SerialPortDataListener
 					eventSender.suspend();
 				}
 			}
-		});
+		};
 		eventSender.start();
 	}
 
 	/**
-	 * @see {@link http://fazecast.github.io/jSerialComm/javadoc/com/fazecast/jSerialComm/SerialPortDataListener.html#getListeningEvents--}
-	 * 
+	 * @see <a href=
+	 *      "http://fazecast.github.io/jSerialComm/javadoc/com/fazecast/jSerialComm/SerialPortDataListener.html#getListeningEvents--"
+	 *      >com.fazecast.jSerialComm.SerialPortDataListener#getListeningEvents</a>
 	 */
-
 	@Override
 	public int getListeningEvents()
 	{
@@ -86,11 +87,9 @@ public class SerialListener implements SerialPortDataListener
 	 * and invoke onReceivedPacketEvent() method.
 	 * 
 	 */
-
 	@Override
 	public void serialEvent(SerialPortEvent event)
 	{
-
 		byte[] data = event.getReceivedData();
 		for (byte b : data)
 		{
@@ -104,11 +103,10 @@ public class SerialListener implements SerialPortDataListener
 					packet[i] = recieveBuffer.poll();
 				}
 				numBytesReceived = 0;
-				unhandledPackets.add(new ReceivedPacketEvent(this, packet));
+				unhandledPackets.offer(new ReceivedPacketEvent(this, packet));
 				eventSender.resume();
 			}
 		}
-
 	}
 
 }

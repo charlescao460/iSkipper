@@ -10,7 +10,9 @@ import handler.ReceivedPacketHandlerInterface;
  * 
  * It aggregates with com.fazecast.jSerialComm.SerialPort
  * 
- * @see {@link http://fazecast.github.io/jSerialComm/javadoc/com/fazecast/jSerialComm/SerialPort.html}
+ * @see <a href=
+ *      "http://fazecast.github.io/jSerialComm/javadoc/com/fazecast/jSerialComm/SerialPort.html"
+ *      >com.fazecast.jSerialComm.SerialPort</a>
  * @author CSR
  *
  */

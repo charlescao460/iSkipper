@@ -7,6 +7,7 @@ import java.util.EventObject;
  * response packet(An ASCII string ended by '\0).
  * 
  * @author CSR
+ * @see java.util.EventObject
  */
 public class ReceivedPacketEvent extends EventObject
 {
@@ -26,6 +27,9 @@ public class ReceivedPacketEvent extends EventObject
 		this.data = data;
 	}
 
+	/**
+	 * @return the received response data in this packet.
+	 */
 	public byte[] getReceivedData()
 	{
 		return data;
