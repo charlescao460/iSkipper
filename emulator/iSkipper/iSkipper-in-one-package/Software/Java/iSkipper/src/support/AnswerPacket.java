@@ -158,10 +158,24 @@ public class AnswerPacket implements Cloneable
 	@Override
 	public boolean equals(Object obj)
 	{
-		if (!obj.getClass().equals(this.getClass()))
+		if (obj == null || !obj.getClass().equals(this.getClass()))
 			return false;
 		AnswerPacket other = (AnswerPacket) obj;
 		return other.ID == this.ID && other.answer.equals(this.answer);
+	}
+
+	/**
+	 * @return the ID</br>
+	 * 
+	 *         Since each of the iClicker IDs should be unique in this world, we
+	 *         could just directly use it as a hashCode.
+	 * 
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode()
+	{
+		return this.ID;
 	}
 
 	/**
