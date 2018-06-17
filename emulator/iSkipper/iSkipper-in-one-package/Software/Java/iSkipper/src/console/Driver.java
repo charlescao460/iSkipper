@@ -32,7 +32,6 @@ public class Driver
 			}
 		}
 		serial.setSerialPort(index);
-		serial.initializePort();
 		while (true)
 		{
 			String command = scanner.nextLine();
