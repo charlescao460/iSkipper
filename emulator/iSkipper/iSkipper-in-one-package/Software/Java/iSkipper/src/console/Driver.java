@@ -4,13 +4,13 @@ import java.util.Scanner;
 
 import device.Serial;
 import support.ASCII;
+import support.AnswerPacket;
 
 public class Driver
 {
-	public static void main(String[] args)
+	public static void main(String[] args) throws InterruptedException
 	{
 		Serial serial = new Serial();
-		@SuppressWarnings("resource")
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("Here are the available port:");
 		String[] portNames = serial.getAvailablePortsByNames();
@@ -31,14 +31,42 @@ public class Driver
 				scanner.nextLine();
 			}
 		}
-		serial.setSerialPort(index);
-		while (true)
+		if (!serial.setSerialPort(index))
 		{
-			String command = scanner.nextLine();
-			if (command.contains("stop"))
-				System.exit(0);
-			serial.writeBytes(ASCII.stringToBytes(command));
+			System.err.println("Cannot open this port!");
 		}
+		Thread.sleep(2000);
+		/*
+		 * while (true) { String command = scanner.nextLine(); if
+		 * (command.contains("stop")) System.exit(0);
+		 * serial.writeBytes(ASCII.stringToBytes(command)); }
+		 */
+		serial.writeBytes(ASCII.stringToBytes("I"));
+		Thread.sleep(100);
+		serial.writeBytes(ASCII.stringToBytes("S"));
+		Thread.sleep(100);
+		byte[] answers =
+		{ 'A', 'B', 'C', 'D', 'E' };
+		for (int i = 0; true; i = (i + 1) % 0x00_FF_FF_FF)
+		{
 
+			byte[] arr = AnswerPacket.intToByteArray(i << 8);
+			arr[3] = (byte) ((byte) arr[0] ^ (byte) arr[1] ^ (byte) arr[2]);
+			if (!AnswerPacket.isValidID(arr))
+				continue;
+			// byte[] arr = AnswerPacket.intToByteArray(0xCD_CD_CD_CD);
+			String toSend = String.format("%c,%02X%02X%02X%02X", answers[i % 5], arr[0], arr[1], arr[2], arr[3]);
+			// System.out.println(toSend);
+			serial.writeBytes(ASCII.stringToBytes(toSend));
+			Thread.sleep(1);
+			if (i % 10000 == 0)
+			{
+				System.gc();
+				System.out.println(toSend);
+			} else if (i % 20 == 0)
+			{
+				System.out.println();
+			}
+		}
 	}
 }

@@ -18,11 +18,12 @@ public final class ASCII
 	public static byte[] stringToBytes(String str)
 	{
 		char[] arrChar = str.toCharArray();
-		byte[] ret = new byte[arrChar.length];
+		byte[] ret = new byte[arrChar.length + 1];
 		for (int i = 0; i < arrChar.length; i++)
 		{
 			ret[i] = (byte) arrChar[i];
 		}
+		ret[arrChar.length] = '\0';
 		return ret;
 	}
 

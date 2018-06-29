@@ -18,6 +18,8 @@ import handler.ReceivedPacketHandlerInterface;
  */
 public class Serial
 {
+	private final static int WRITE_TIMEOUT = 10_000;
+	private final static int READ_TIMEOUT = 10_000;
 	private SerialPort serialPort;
 	private SerialPort[] availablePorts;
 	private SerialListener listener;
@@ -76,6 +78,7 @@ public class Serial
 			return;
 		serialPort.setComPortParameters(/* BaudRate */115200, /* DataBits */ 8, /* StopBits */1,
 				/* Parity */SerialPort.NO_PARITY);
+		serialPort.setComPortTimeouts(SerialPort.TIMEOUT_NONBLOCKING, READ_TIMEOUT, WRITE_TIMEOUT);
 		serialPort.addDataListener(listener);
 	}
 
@@ -99,9 +102,14 @@ public class Serial
 	/**
 	 * @param packetHandler
 	 *            the packetHandler to set
+	 * 
+	 * @throws NullPointerException
+	 *             when the input was null
 	 */
 	public void setPacketHandler(ReceivedPacketHandlerInterface packetHandler)
 	{
+		if (packetHandler == null)
+			throw new NullPointerException("Cannot use a null packetHandler!");
 		this.packetHandler = packetHandler;
 		listener.packetHandler = packetHandler;
 	}
